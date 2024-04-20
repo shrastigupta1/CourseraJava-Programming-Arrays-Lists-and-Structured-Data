@@ -1,0 +1,74 @@
+**
+ * Write a description of WordLengths here.
+ * 
+ * @author (Shrasti Gupta) 
+ * @version (a version number or a date)
+ */
+import edu.duke.*;
+public class WordLengths {
+    public void countWordLengths(FileResource resource, int[] counts)
+    {
+        int num =0;
+        for(String s : resource.words())
+        {
+            if(Character.isLetter(s.charAt(0)) && Character.isLetter(s.charAt(s.length()-1)) )
+            { counts[s.length()]++;
+            }
+            else if (s.length() > 0)
+            {
+             counts[s.length()-1]++;   
+            }
+        }
+    }
+      public int indexOfMax(String[] value) {
+        int maxLength = 0;
+        for (String str : value) {
+            if (str != null && str.length() > maxLength) {
+                maxLength = str.length();
+            }
+        }
+        return maxLength;
+    }
+
+    
+    public void testCountWordLengths()
+    {
+        FileResource resource = new FileResource();
+        int[] counts = new int[31];
+        countWordLengths(resource,counts);
+        
+        
+        
+        for (int i = 0; i < counts.length; i++) {
+            if (counts[i] != 0) {
+                System.out.println( counts[i] + " words of length " + i);
+            }
+            
+        }
+        
+        String[] value = new String[31];
+        int i=0;
+        for(String str : resource.words())
+        {
+               
+               value[i] = str;
+               i++;  
+               
+        }
+        int max = indexOfMax(value);
+        int wordcount=0;
+        for(int k = 0; k<value.length;k++)
+        {
+            
+            wordcount++;
+            if(value[k].length()==max)
+            {
+                break;
+            }
+            
+        }
+        System.out.println("Max Index" + wordcount);
+        
+
+}
+}
