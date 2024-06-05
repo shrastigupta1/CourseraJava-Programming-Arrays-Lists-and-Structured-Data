@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+import edu.duke.*;
+import java.io.*;
+import java.util.Collections;
+import edu.duke.FileResource;
+public class CharactersInPlay {
+    
+    private ArrayList<String> Characters;
+    private ArrayList<Integer> CharactersCount;
+    
+    public CharactersInPlay()
+    {
+        Characters = new ArrayList<String>() ;
+        CharactersCount = new ArrayList<Integer>();
+    }
+    public void update(String person)
+    {
+        if(!Characters.contains(person))
+         {
+             Characters.add(person);
+             CharactersCount.add(1);
+         }
+         else
+         {
+             int index = Characters.indexOf(person);
+             CharactersCount.set(index,CharactersCount.get(index)+1);
+         }
+    }
+    public void findAllCharacters()
+    {
+        FileResource fr = new FileResource();
+        for(String s : fr.lines()) 
+        {
+            int idx = s.indexOf(".");
+            if (idx != -1)
+            {
+            String person = s.substring(0,idx).trim();
+            update(person);
+            }
+        }
+    }
+     public void charactersWithNumParts(int num1, int num2) {
+        for (int i = 0; i < Characters.size(); i++) {
+            int CharCount = CharactersCount.get(i);
+            if (CharCount >= num1 && CharCount <= num2) {
+                System.out.println(Characters.get(i) + "\t" + CharactersCount);
+            }
+        }
+    }
+    public void tester()
+    {
+        findAllCharacters();
+        for(int i = 0; i<CharactersCount.size(); i++)
+        {
+           if (CharactersCount.get(i) > 1) {
+          System.out.println(CharactersCount.get(i) +" " +Characters.get(i));   }
+        }
+        int max = Collections.max(CharactersCount);
+        int idx = CharactersCount.indexOf(max);
+
+        System.out.println("Main Character"+Characters.get(idx));
+    }
+}
