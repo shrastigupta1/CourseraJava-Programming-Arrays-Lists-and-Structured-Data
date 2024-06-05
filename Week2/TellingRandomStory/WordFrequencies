@@ -1,0 +1,58 @@
+import java.util.ArrayList;
+import edu.duke.*;
+import java.io.*;
+import java.util.Collections;
+import edu.duke.FileResource;
+
+public class WordFrequencies {
+    private ArrayList<String> myWords;
+    private ArrayList<Integer> myFreqs;
+    
+    public WordFrequencies()
+    {
+        myWords = new ArrayList<String>() ;
+        myFreqs = new ArrayList<Integer>();
+    }
+    
+    public void findUnique()
+    {
+        myWords.clear();
+        myFreqs.clear();
+        FileResource fr = new FileResource();
+        for(String s : fr.words()) 
+        {
+         s = s.toLowerCase();
+         if(!myWords.contains(s))
+         {
+             myWords.add(s);
+             myFreqs.add(1);
+         }
+         else
+         {
+             int index = myWords.indexOf(s);
+             myFreqs.set(index,myFreqs.get(index)+1);
+         }
+        }
+    }
+    public int findIndexOfMax()
+    {
+        int maxIdx =Collections.max(myFreqs);
+        return maxIdx;
+    }
+    public void tester()
+    {
+        findUnique();
+        System.out.println("Number of unique words in a file: "+myWords.size());
+        for(int i = 0; i<myFreqs.size(); i++)
+        {
+          System.out.println(myFreqs.get(i) +" " +myWords.get(i));   
+        }
+        int max = findIndexOfMax();
+        int idx = myFreqs.indexOf(max);
+        System.out.println("The word that occurs most often and its count are: "+ myFreqs.get(idx)+" "+myWords.get(idx));
+    }
+        
+        
+    }
+    
+
